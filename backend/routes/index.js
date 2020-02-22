@@ -6,6 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.use('/msg', require('./api/message'));
+router.use('/api', require('./api'));
 
 module.exports = router;
