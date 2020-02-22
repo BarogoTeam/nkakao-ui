@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-proxy: {
-},
-outputDir: '../backend/public',
+        proxy: {}
+    },
+    outputDir: '../backend/public',
 }
