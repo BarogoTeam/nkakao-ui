@@ -37,28 +37,16 @@
                     <h3 class="chat__message-username">{{message.userId}}</h3>
                     <span class="chat__message-body">{{message.msg}}</span>
                 </div>
+                <span class="chat__message-time">{{message.date}}</span>
             </div>
         </div>
-        <div class="chat__message chat__message-from-me">
-            <span class="chat__message-time">17:55</span>
-            <span class="chat__message-body">유정아 밥 먹었어?</span>
-        </div>
-        <div class="chat__message chat__message-to-me">
-            <img src="images/kakao_friends.png" class="chat__message-avaatar">
-            <div class="chat__message-center">
-                <h3 class="chat__message-username">유정</h3>
-                <span class="chat__message-body">응 파스타 먹었어!! 건상아 넌 뭐하고있었어?</span>
-            </div>
-            <span class="chat__message-time">17:57</span>
-        </div>
-
     </main>
     <div class="type-message">
         <i class="fa fa-plus "></i>
         <div class="type-message__input">
-            <input type="text">
+            <input type="text" v-model="inputMsg" v-on:keyup.enter="sendMsg">
             <i class="fa fa-smile-o"></i>
-            <span class="record-message">
+            <span class="record-message" @click="sendMsg">
         <i class="fa fa-microphone"></i>
       </span>
         </div>
@@ -67,12 +55,53 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         data: () => ({
             MessageList: [
                 {id:'1', userId:'user1', date:'0328', msg:'안녕 나는 유저1이야'},
                 {id:'2', userId:'user2', date:'0330', msg:'나는 유저2야'}
-            ]
-        })
+            ],
+            inputMsg : "",
+            msgObj : {},
+            result : null
+        }),
+        computed : {
+        },
+        mounted : function () {
+            this.updateMsg()
+        },
+        methods : {
+            requestMsg() {
+                axios.get("www.naver.com").then(response => {
+                    this.msgObj = {
+                        id: '2',
+                        userId: response.data.userId,
+                        date: response.data.date,
+                        msg: response.data.msg
+                    };
+                    this.MessageList.push(this.msgObj);
+                })
+            },
+            updateMsg() {
+                setInterval(()=>{
+                    this.requestMsg();
+                }, 3000);
+            },
+            singleUpdateMsg() {
+                this.requestMsg();
+            },
+            sendMsg() {
+                this.singleUpdateMsg();
+                this.msgObj = {
+                    id: '1',
+                    userId: 'user1',
+                    date: '0231',
+                    msg: this.inputMsg
+                };
+                this.MessageList.push(this.msgObj);
+                this.inputMsg = "";
+            }
+        }
     }
 </script>
