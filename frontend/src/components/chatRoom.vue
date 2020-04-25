@@ -66,7 +66,13 @@
     </body>
 </template>
 
-<script lang="ts">
-    import MessageList from './chatRoom'
-    export default MessageList
+<script>
+    export default {
+        data: () => ({
+            MessageList: [
+                {id:'1', userId:'user1', date:'0328', msg:'안녕 나는 유저1이야'},
+                {id:'2', userId:'user2', date:'0330', msg:'나는 유저2야'}
+            ]
+        })
+    }
 </script>
