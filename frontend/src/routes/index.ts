@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // modules
-import Index from '@/components/TestPage.vue';
+import main from '@/components/main.vue';
 import chatRoom from '@/components/chatRoom.vue';
 
 Vue.use(VueRouter)
@@ -13,7 +13,7 @@ export const router = new VueRouter({
         {
             path: '/',
             name: 'index',
-            component: Index
+            component: main
         },
         {
             path: '/chatRoom',
