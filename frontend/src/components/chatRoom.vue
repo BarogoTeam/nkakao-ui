@@ -27,11 +27,11 @@
             <span class="date-divider__text">화요일, 2018년 6월 19일</span>
         </div>
         <div v-for="message of MessageList" :key="message.messageId">
-            <div v-if="message.userId == 'user1'">
+            <div class="chat__message chat__message-from-me" v-if="message.userId == 'user1'">
                 <span class="chat__message-time">{{message.date}}</span>
                 <span class="chat__message-body">{{message.msg}}</span>
             </div>
-            <div v-else>
+            <div class="chat__message chat__message-to-me" v-else>
                 <img src="images/kakao_friends.png" class="chat__message-avaatar">
                 <div class="chat__message-center">
                     <h3 class="chat__message-username">{{message.userId}}</h3>
