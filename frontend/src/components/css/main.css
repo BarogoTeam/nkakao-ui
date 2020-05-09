@@ -20,6 +20,7 @@ body {
     background: #BA2;
     display: flex;
     flex-direction: column;
+    padding-top: 44px;
 }
 
 .sidebar-item {
@@ -28,6 +29,7 @@ body {
     opacity: 0.5;
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .sidebar-item:hover {
@@ -39,16 +41,13 @@ body {
     display: block;
     text-align: center;
     margin-bottom: 5px;
-    font-size: 24px;
+    font-size: 52px;
     height: 100%;
 }
 
-.sidebar-item-icon:before {
-    content: "\f075"
-}
-
 .sidebar-item-text {
-    font-size: 10px;
+    text-align: center;
+    font-size: 12px;
 }
 
 .main {
@@ -67,4 +66,14 @@ body {
 .content {
     flex: 19;
     background: #FAF;
+}
+
+.menu-tool-list {
+    float: right;
+}
+
+.menu-tool-item {
+    font-size: 16px;
+    float: right;
+    margin: 5px;
 }
