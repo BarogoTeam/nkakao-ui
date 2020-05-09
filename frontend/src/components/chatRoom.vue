@@ -26,15 +26,15 @@
         <div class="date-divider">
             <span class="date-divider__text">화요일, 2018년 6월 19일</span>
         </div>
-        <div v-for="message of MessageList" :key="message.messageId">
-            <div class="chat__message chat__message-from-me" v-if="message.userId == 'user1'">
+        <div v-for="message of messageList" :key="message.messageId">
+            <div class="chat__message chat__message-from-me" v-if="message.userid == currentUserid">
                 <span class="chat__message-time">{{message.date}}</span>
                 <span class="chat__message-body">{{message.msg}}</span>
             </div>
             <div class="chat__message chat__message-to-me" v-else>
                 <img src="images/kakao_friends.png" class="chat__message-avaatar">
                 <div class="chat__message-center">
-                    <h3 class="chat__message-username">{{message.userId}}</h3>
+                    <h3 class="chat__message-username">{{message.userid}}</h3>
                     <span class="chat__message-body">{{message.msg}}</span>
                 </div>
                 <span class="chat__message-time">{{message.date}}</span>
@@ -58,9 +58,10 @@
     import axios from 'axios';
     export default {
         data: () => ({
-            MessageList: [
-                {id:'1', userId:'user1', date:'0328', msg:'안녕 나는 유저1이야'},
-                {id:'2', userId:'user2', date:'0330', msg:'나는 유저2야'}
+            currentUserid : 'user1', // TODO 현재 접속자id 받아오도록 수정하기
+            messageList: [
+                {id:'1', userid:'user1', date:'0328', msg:'안녕 나는 유저1이야'},
+                {id:'2', userid:'user2', date:'0330', msg:'나는 유저2야'}
             ],
             inputMsg : "",
             msgObj : {},
@@ -69,37 +70,42 @@
         computed : {
         },
         mounted : function () {
-            this.updateMsg()
+            this.getAllMsg();
+            this.updateMsg();
         },
         methods : {
-            requestMsg() {
-                axios.get("www.naver.com").then(response => {
-                    this.msgObj = {
-                        id: '2',
-                        userId: response.data.userId,
-                        date: response.data.date,
-                        msg: response.data.msg
-                    };
-                    this.MessageList.push(this.msgObj);
+            getAllMsg() {
+                let roomid = 1; // TODO 채팅방리스트에서 넘어올 때 roomid 받아오게 수정하기
+                let url = 'http://localhost:3000/' + roomid;
+                axios.get(url).then(response => {
+                    this.messageList = response.data.messageList;
+                })
+            },
+            getLatestMsg() {
+                let roomid = 1; // TODO 채팅방리스트에서 넘어올 때 roomid 받아오게 수정하기
+                let lastCount = this.messageList[this.messageList.length-1].id;
+                let url = 'http://localhost:3000/' + roomid + '/' + lastCount;
+                axios.get(url).then(response => {
+                    this.messageList = this.messageList.concat(response.data.messageList);
                 })
             },
             updateMsg() {
                 setInterval(()=>{
-                    this.requestMsg();
+                    this.getLatestMsg();
                 }, 3000);
             },
             singleUpdateMsg() {
-                this.requestMsg();
+                this.getLatestMsg();
             },
             sendMsg() {
-                this.singleUpdateMsg();
+                //this.singleUpdateMsg();
                 this.msgObj = {
                     id: '1',
-                    userId: 'user1',
+                    userid: 'user1',
                     date: '0231',
                     msg: this.inputMsg
                 };
-                this.MessageList.push(this.msgObj);
+                this.messageList.push(this.msgObj);
                 this.inputMsg = "";
             }
         }
