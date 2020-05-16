@@ -1,14 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+let messageData = {};
+
+const pushMessage = (key, message) => {
+    
+}
+
 const sendMessage = (req,res,next) => {
-    res.send(`roomid=${req.params.roomid}] id=${req.params.id} message=${req.params.message}`);
+    if(!messageData[req.params.roomid])  messageData[req.params.roomid] = [];
+    messageData[req.params.roomid].push({id: req.params.id, message: req.params.message});
+    res.send(`success`);
 }
 const getAllMessage = (req,res,next) => {
-    res.send(`[모든메세지받기] roomid=${req.params.roomid}`);
+    console.log('getAllMessage')
+    console.log(messageData)
+    res.send(messageData[req.params.roomid]);
 }
 const getLatestMessage = (req,res,next) => {
-    res.send(`[최근메세지받기] roomid=${req.params.roomid} lastcount=${req.params.lastcount}`);
+    let msg = messageData[req.params.roomid] || [];
+    let lastcount = Number(req.params.lastcount) || 0;
+    if(lastcount + 1 >= msg.length)  res.send([]);
+    else res.send(msg.slice(lastcount+1, msg.length));
 }
 
 
