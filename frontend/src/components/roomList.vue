@@ -34,33 +34,19 @@
             <input type="text" placeholder="검색">
         </div> <!-- 검색 섹션 -->
         <ul class="chats__list">
-            <li class="chats__chat">
+            <li class="chats__chat" v-for="item in list" v-bind:key="item.id">
                 <a href="chat.html">
                     <div class="chat__content">
-                        <img src="images/kakao_friends.png">
+                        <img src="images/kakao_friends.png"/>
                         <div class="chat__privew">
-                            <h3 class="chat__user">유정</h3>
-                            <span class="chat__last-message">뭐해?</span>
+                            <h3 class="chat__user">{{item.userName}}</h3>
+                            <span class="chat__last-message">{{item.lastMessage}}</span>
                         </div>
                     </div>
-                    <span class="chat__date-time">12:25</span>
+                    <span class="chat__date-time">{{item.date}}</span>
                 </a>
             </li>
-            <!-- 첫번째 유저 채팅 기록 -->
-
-            <li class="chats__chat">
-                <a href="chat.html">
-                    <div class="chat__content">
-                        <img src="images/kakao_friends.png">
-                        <div class="chat__privew">
-                            <h3 class="chat__user">지은</h3>
-                            <span class="chat__last-message">안녕!!</span>
-                        </div>
-                    </div>
-                    <span class="chat__date-time">11:24</span>
-                </a>
-            </li>
-        </ul> <!-- 두번째 유저 채팅 기록 --> <!-- 채팅 기록 ul tag 닫는 부분 -->
+        </ul>
         <div class="chat-btn">
             <i class="fas fa-comment"></i>
         </div>
