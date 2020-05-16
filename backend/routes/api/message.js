@@ -9,7 +9,11 @@ const pushMessage = (key, message) => {
 
 const sendMessage = (req,res,next) => {
     if(!messageData[req.params.roomid])  messageData[req.params.roomid] = [];
-    messageData[req.params.roomid].push({id: req.params.id, message: req.params.message});
+    messageData[req.params.roomid].push({
+        userid: req.params.id, 
+        id: `${req.params.id}-${messageData[req.params.roomid].length}`, 
+        message: req.params.message
+    });
     res.send(`success`);
 }
 const getAllMessage = (req,res,next) => {
