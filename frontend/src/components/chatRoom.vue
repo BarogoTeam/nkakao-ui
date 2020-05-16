@@ -26,7 +26,7 @@
         <div class="date-divider">
             <span class="date-divider__text">화요일, 2018년 6월 19일</span>
         </div>
-        <div v-for="message of messageList" :key="message.messageId">
+        <div v-for="message of messageList" :key="message.id">
             <div class="chat__message chat__message-from-me" v-if="message.userid == currentUserid">
                 <span class="chat__message-time">{{message.date}}</span>
                 <span class="chat__message-body">{{message.msg}}</span>
@@ -76,17 +76,17 @@
         methods : {
             getAllMsg() {
                 let roomid = 1; // TODO 채팅방리스트에서 넘어올 때 roomid 받아오게 수정하기
-                let url = 'http://localhost:3000/' + roomid;
+                let url = 'http://localhost:3000/api/msg/' + roomid;
                 axios.get(url).then(response => {
                     this.messageList = response.data.messageList;
                 })
             },
             getLatestMsg() {
                 let roomid = 1; // TODO 채팅방리스트에서 넘어올 때 roomid 받아오게 수정하기
-                let lastCount = this.messageList[this.messageList.length-1].id;
-                let url = 'http://localhost:3000/' + roomid + '/' + lastCount;
+                let lastCount = this.messageList.length;
+                let url = 'http://localhost:3000/api/msg/' + roomid + '/' + lastCount;
                 axios.get(url).then(response => {
-                    this.messageList = this.messageList.concat(response.data.messageList);
+                    this.messageList = this.messageList.concat(response.data.messageList || []);
                 })
             },
             updateMsg() {
@@ -100,12 +100,18 @@
             sendMsg() {
                 //this.singleUpdateMsg();
                 this.msgObj = {
-                    id: '1',
+                    id: Math.random(1000),
                     userid: 'user1',
                     date: '0231',
                     msg: this.inputMsg
                 };
                 this.messageList.push(this.msgObj);
+
+                let roomid = 1; // TODO 채팅방리스트에서 넘어올 때 roomid 받아오게 수정하기
+                let url = 'http://localhost:3000/api/msg/' + roomid + '/' + this.currentUserid + '/' + this.inputMsg;
+                axios.post(url).then(response => {
+                    this.messageList = this.messageList.concat(response.data.messageList || []);
+                })
                 this.inputMsg = "";
             }
         }

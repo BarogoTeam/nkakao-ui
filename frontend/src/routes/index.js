@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 // modules
 import main from '@/components/main.vue';
 import chatRoom from '@/components/chatRoom.vue';
-import roomList from '@/components/RoomList/roomList.vue';
+import roomList from '@/components/roomList.vue';
 Vue.use(VueRouter);
 export const router = new VueRouter({
     mode: 'history',

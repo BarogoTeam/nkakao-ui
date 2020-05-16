@@ -1,32 +1,91 @@
 <template>
-    <div class="app">
-        <div class="sidebar">
-            <div v-for="side of sideList" :key="side.id" class="sidebar-item" :style="side.style">
-                <i :class="side.class" class="sidebar-item-icon"/>
-                <div class="sidebar-item-text">{{side.title}}</div>
+    <body>
+    <header class= "top-header">
+        <div class="header__top">
+            <div class="header__column">
+                <i class="fas fa-plane"></i>
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="header__column">
+                <span class="header_time">11:24</span>
+            </div>
+            <div class="header__column">
+                <i class="fas fa-moon"></i>
+                <i class="fab fa-bluetooth-b"></i>
+                <span class="header_bettery">111% <i class="fas fa-battery-full"></i> </span>
             </div>
         </div>
-        <div class="main">
-            <div class="menubar">
-                <div class="menu-tool-list">
-                    <i class="menu-tool-item fa fa-times"/>
-                    <i class="menu-tool-item fa fa-window-maximize"/>
-                    <i class="menu-tool-item fa fa-window-minimize"/>
+        <div class="header__bottom">
+            <div class="header__column">
+                <span class="header__text">편집</span>
+            </div>
+            <div class="header__column">
+                <span class="header__text">친구</span><span class="header__number">21</span>
+            </div>
+            <div class="header__column">
+                <i class="fa fa-cog fa-lg"></i>
+            </div>
+        </div> <!-- 상단 헤더 섹션 -->
+    </header>
+
+    <main class="friends">
+        <div class="search-bar">
+
+            <input type="text" placeholder="검색">
+        </div> <!-- 검색 섹션 -->
+
+        <section class="friends__section">
+            <header class="frindes__section-header">
+                <h6 class="friends__section-title">내 프로필</h6>
+            </header>
+            <div class="friends__section-rows">
+                <div class="friends__section-row">
+
+                    <img src="images/kakao_friends.png">
+                    <a href="profile.html" class="friends__section-name">
+                        건상
+                    </a>
+                </div>
+
+            </div>
+        </section> <!-- 내 프로필 섹션 -->
+
+        <section class="friends__section">
+            <header class="frindes__section-header">
+                <h6 class="friends__section-title">친구</h6>
+            </header>
+            <div class="friends__section-rows">
+                <div class="friends__section-row with-tagline">
+                    <div class="friends__section-column">
+                        <img src="images/kakao_friends.png">
+                        <span class="friends__section-name">유정</span>
+                    </div>
+                    <span class="friends__section-tagline">유정유정해</span>
                 </div>
             </div>
-            <div class="content">
-            </div>
-        </div>
-    </div>
+        </section> <!-- 친구 섹션 -->
+    </main>
+
+    <nav class="tab-bar">
+        <a href="main" class="tab-bar__tab tab-bar__tab--selected">
+            <i class="fa fa-user"></i>
+            <span class="tab-bar__title">친구</span>
+        </a>
+
+        <a href="roomList" class="tab-bar__tab">
+            <i class="fas fa-comment"></i>
+            <span class="tab-bar__title">채팅</span>
+        </a>
+
+        <a href="channel.html" class="tab-bar__tab">
+            <i class="fa fa-search"></i>
+            <span class="tab-bar__title">채널</span>
+        </a>
+
+        <a href="more.html" class="tab-bar__tab">
+            <i class="fa fa-ellipsis-h"></i>
+            <span class="tab-bar__title">더보기</span>
+        </a>
+    </nav> <!-- 하단 푸터 네비게이션 바 -->
+    </body>
 </template>
-<script>
-    export default {
-        data: () => ({
-            sideList: [
-                {id: 'user', title: 'user', class: 'fa fa-user', style: {background:'#AAA'}},
-                {id: 'chat', title: 'chatting', class: 'fa fa-comment', style: {background:'#FFF'}},
-                {id: 'setting', title: 'setting', class: 'fa fa-search', style: {background:'#AFA'}},
-            ]
-        })
-    }
-</script>
