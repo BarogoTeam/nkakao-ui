@@ -1,11 +1,20 @@
 var express = require('express');
 var router = express.Router();
+let localData = require('../utils/testLocalData');
+let generateKey = require('../utils/generateKey');
 
 const createRoom = (req,res,next) => {
-    res.send(`[createRoom]`);
+    let key = 'r' + generateKey(15);
+    localData.roomData[key] = {
+        id: key,
+        users: [],
+        last_msgid: 0,
+        info: {},
+    }
+    res.json({id: key});
 }
 const getRoom = (req,res,next) => {
-    res.send(`[getRoom] ${req.params.id}`);
+    res.json(localData.roomData[req.params.id]);
 }
 const editRoom = (req,res,next) => {
     res.send(`[editRoom] ${req.params.id}`);
