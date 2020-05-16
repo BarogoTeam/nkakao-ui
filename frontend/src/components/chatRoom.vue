@@ -58,7 +58,7 @@
     import axios from 'axios';
     export default {
         data: () => ({
-            currentUserid : 'user1', // TODO 현재 접속자id 받아오도록 수정하기
+            currentUserid : 'user2', // TODO 현재 접속자id 받아오도록 수정하기
             messageList: [
                 {id:'1', userid:'user1', date:'0328', message:'안녕 나는 유저1이야'},
                 {id:'2', userid:'user2', date:'0330', message:'나는 유저2야'}
@@ -101,7 +101,7 @@
             sendMsg() {
                 //this.singleUpdateMsg();
                 this.msgObj = {
-                    userid: 'user1',
+                    userid: this.currentUserid,
                     date: '0516',
                     message: this.inputMsg
                 };
