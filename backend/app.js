@@ -7,6 +7,14 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 var app = express();
+var cors = require('cors')
+var corsOptions = {
+    origin: function (origin, callback) {
+        callback(null, true);
+    }
+}
+app.use(cors(corsOptions));
+
 
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
