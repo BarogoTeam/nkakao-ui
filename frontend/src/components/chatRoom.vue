@@ -27,14 +27,14 @@
             <span class="date-divider__text">화요일, 2018년 6월 19일</span>
         </div>
         <div v-for="message of messageList" :key="message.id">
-            <div class="chat__message chat__message-from-me" v-if="message.userid == currentUserid">
+            <div class="chat__message chat__message-from-me" v-if="message.userId == currentUserid">
                 <span class="chat__message-time">{{message.date}}</span>
                 <span class="chat__message-body">{{message.msg}}</span>
             </div>
             <div class="chat__message chat__message-to-me" v-else>
                 <img src="images/kakao_friends.png" class="chat__message-avaatar">
                 <div class="chat__message-center">
-                    <h3 class="chat__message-username">{{message.userid}}</h3>
+                    <h3 class="chat__message-username">{{message.userId}}</h3>
                     <span class="chat__message-body">{{message.msg}}</span>
                 </div>
                 <span class="chat__message-time">{{message.date}}</span>
@@ -101,9 +101,9 @@
             sendMsg() {
                 //this.singleUpdateMsg();
                 this.msgObj = {
-                    roomid: 1,
-                    userid: this.currentUserid,
-                    date: '0516',
+                    roomId: 1,
+                    userId: this.currentUserid,
+                    date: Date.now(),
                     msg: this.inputMsg
                 };
                 this.messageList.push(this.msgObj);

@@ -5,6 +5,7 @@ var localData = require('../utils/testLocalData');
 let apiUrl = 'http://localhost:8081';
 
 const sendMessage = (req,res,next) => {
+    console.log('response', req.body)
 
     axios.post(apiUrl+'/message', req.body).then(response => {
         console.log('response', response.data)
